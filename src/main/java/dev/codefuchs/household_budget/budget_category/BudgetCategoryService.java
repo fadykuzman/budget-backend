@@ -1,4 +1,4 @@
-package dev.codefuchs.household_budget;
+package dev.codefuchs.household_budget.budget_category;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package dev.codefuchs.household_budget;
+package dev.codefuchs.household_budget.budget_category;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

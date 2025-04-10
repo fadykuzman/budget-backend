@@ -1,4 +1,4 @@
-package dev.codefuchs.household_budget;
+package dev.codefuchs.household_budget.budget_category;
 
 public class BudgetCategoryAlreadyExists extends RuntimeException {
     public BudgetCategoryAlreadyExists(String message) {
