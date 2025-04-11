@@ -4,20 +4,31 @@
 classDiagram
     class Budget {
         id
-        category
+        categoryId
         amount
     }
     class Expense {
         id
-        category
+        categoryId
         amount
     }
     class Balance {
-        category
+        categoryId
         amout
     }
     class BudgetCategory {
         id
         name
+        cadence
     }
 ```
+
+```mermaid
+erDiagram
+    Budget ||--|{ BudgetCategory: isOf
+```
+
+## Actions
+- Budget is created
+- Budget is updated
+- Budget is deleted
