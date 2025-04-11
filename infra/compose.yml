@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: budgetdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - budget-app-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: pass
+    ports:
+      - "15432:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin/
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - budget-app-network
+
+  # Flyway - Database migration tool
+  flyway:
+    image: flyway/flyway:9-alpine
+    container_name: flyway
+    command: -url=jdbc:postgresql://postgres:5432/budgetdb -user=postgres -password=postgres -connectRetries=10 migrate
+    volumes:
+      - ../src/main/resources/database/migrations:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - budget-app-network
+
+volumes:
+  postgres-data:
+  pgadmin-data:
+
+networks:
+  budget-app-network:
+    driver: bridge
