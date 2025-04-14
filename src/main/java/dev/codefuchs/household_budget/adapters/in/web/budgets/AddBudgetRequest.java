@@ -1,4 +1,4 @@
-package dev.codefuchs.household_budget.budget.add_budget;
+package dev.codefuchs.household_budget.adapters.in.web.budgets;
 
 public record AddBudgetRequest(
         String category,
