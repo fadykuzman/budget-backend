@@ -22,7 +22,6 @@ public class BudgetsService {
     public void createBudgets(BudgetCategoryAddedEvent event) {
 
         // TODO: should notify user if budgets already exist for any month of the period
-
         var budgetCategory = event.budgetCategory();
         if (event.startDate() == null) {
             YearMonth now = YearMonth.now();

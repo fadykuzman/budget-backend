@@ -1,0 +1,30 @@
+package dev.codefuchs.household_budget.adapters.in.web.expenses;
+
+import dev.codefuchs.household_budget.application.expenses.ExpensesService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
+@RestController
+@RequestMapping("v1/api/expenses")
+@RequiredArgsConstructor
+public class ExpensesController {
+    private final ExpensesService service;
+
+    @PostMapping
+    public void add(@RequestBody AddExpenseRequest request) {
+        var input = request.toInput();
+        service.add(input);
+    }
+
+    @GetMapping
+    public GetExpensesForBudgetResponse getForBudget(
+            @RequestParam String budgetId
+    ) {
+        var id = UUID.fromString(budgetId);
+        var output = service.getForBudget(id);
+        return new GetExpensesForBudgetResponse(output);
+    }
+
+}
