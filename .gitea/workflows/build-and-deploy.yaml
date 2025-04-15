@@ -26,10 +26,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew build -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
