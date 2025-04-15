@@ -72,4 +72,4 @@ jobs:
             --restart unless-stopped \
             spring-boot-app:${GITHUB_SHA::8}
           
-          echo "Deployment complete"
+          echo "Deployment complete and done"
