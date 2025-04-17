@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,7 +42,9 @@ public class ExpensesService {
                     var purpose = key.getValue();
                     var summedAmount = entry.getValue();
                     return new ExpenseOutput(purpose, summedAmount, date);
-                }).toList();
+                })
+                .sorted(Comparator.comparing(ExpenseOutput::date))
+                .toList();
         int totalAmount = expenseOutputs.stream().mapToInt(ExpenseOutput::amount)
                 .sum();
         return new GetExpensesOutput(expenseOutputs, totalAmount);
