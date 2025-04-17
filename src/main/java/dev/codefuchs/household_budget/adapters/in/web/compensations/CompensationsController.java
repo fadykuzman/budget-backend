@@ -2,16 +2,24 @@ package dev.codefuchs.household_budget.adapters.in.web.compensations;
 
 import dev.codefuchs.household_budget.application.compensations.CompensationsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("v1/api/compensations")
 @RequiredArgsConstructor
 public class CompensationsController {
     private final CompensationsService service;
+
+    @GetMapping
+    public GetCompensationsForBudgetResponse getForBudget(
+            @RequestParam String budgetId
+    ) {
+        var id = UUID.fromString(budgetId);
+        var output = service.getForBudget(id);
+        return new GetCompensationsForBudgetResponse(output);
+    }
 
     @PostMapping
     public void add(@RequestBody AddCompensationRequest request) {
