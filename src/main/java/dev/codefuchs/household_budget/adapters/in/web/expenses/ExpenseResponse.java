@@ -1,8 +1,10 @@
 package dev.codefuchs.household_budget.adapters.in.web.expenses;
 
+import java.time.LocalDate;
+
 public record ExpenseResponse(
-        String id,
         String purpose,
-        int amount
+        int amount,
+        String date
 ) {
 }

@@ -4,11 +4,15 @@ import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRe
 import dev.codefuchs.household_budget.adapters.out.persistence.expenses.ExpensesRepository;
 import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundException;
 import dev.codefuchs.household_budget.domain.budget.Budget;
+import dev.codefuchs.household_budget.domain.expenses.Expense;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,10 +28,20 @@ public class ExpensesService {
     }
 
     public GetExpensesOutput getForBudget(UUID budgetId) {
-        List<ExpenseOutput> expenseOutputs = repository.findAllByBudgetId(budgetId)
+        var expenseOutputs = repository.findAllByBudgetId(budgetId)
                 .stream()
-                .map(expense -> new ExpenseOutput(expense.getId(), expense.getPurpose(), expense.getAmount()))
-                .toList();
+                .collect(Collectors.groupingBy(
+                        expense -> Map.entry(expense.getDate(), expense.getPurpose().toLowerCase().trim()),
+                        Collectors.summingInt(Expense::getAmount)))
+                .entrySet()
+                .stream()
+                .map(entry -> {
+                    var key = entry.getKey();
+                    var date = key.getKey();
+                    var purpose = key.getValue();
+                    var summedAmount = entry.getValue();
+                    return new ExpenseOutput(purpose, summedAmount, date);
+                }).toList();
         int totalAmount = expenseOutputs.stream().mapToInt(ExpenseOutput::amount)
                 .sum();
         return new GetExpensesOutput(expenseOutputs, totalAmount);

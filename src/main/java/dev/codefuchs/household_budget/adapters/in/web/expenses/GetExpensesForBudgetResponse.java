@@ -13,7 +13,7 @@ public record GetExpensesForBudgetResponse(
                 output.expenses()
                         .stream()
                         .map(o ->
-                                new ExpenseResponse(o.id().toString(), o.purpose(), o.amount())
+                                new ExpenseResponse(o.purpose(), o.amount(), String.valueOf(o.date().getDayOfMonth()))
                 ).toList(),
                 output.totalAmount()
         );
