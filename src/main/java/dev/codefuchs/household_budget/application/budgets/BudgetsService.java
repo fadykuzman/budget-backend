@@ -4,6 +4,8 @@ import dev.codefuchs.household_budget.adapters.in.web.budgets.BudgetsResponse;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetDTO;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
 import dev.codefuchs.household_budget.application.budget_categories.BudgetCategoryAddedEvent;
+import dev.codefuchs.household_budget.application.compensations.CompensationsService;
+import dev.codefuchs.household_budget.application.expenses.ExpensesService;
 import dev.codefuchs.household_budget.domain.budget.Budget;
 import dev.codefuchs.household_budget.domain.budget_categories.BudgetCategory;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +13,15 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class BudgetsService {
 
     private final BudgetsRepository repository;
+    private final ExpensesService expensesService;
+    private final CompensationsService compensationsService;
 
     @EventListener
     public void createBudgets(BudgetCategoryAddedEvent event) {
@@ -57,5 +62,18 @@ public class BudgetsService {
                     new BudgetDTO(budget.getId().toString(), budget.getBudgetCategory().getName(), budget.getAmount())
                 ).toList();
         return new BudgetsResponse(list);
+    }
+
+    public void delete(UUID budgetId) {
+        repository.deleteById(budgetId);
+    }
+
+    public GetBudgetSummaryOutput getSummary(UUID budgetId) {
+        // TODO refactor. this will cause spaghetti code
+        int target = repository.findById(budgetId).get().getAmount();
+        int expenses = expensesService.getForBudget(budgetId).totalAmount();
+        int compensation = compensationsService.getForBudget(budgetId).totalAmount();
+        int balance = compensation - expenses;
+        return new GetBudgetSummaryOutput(target, compensation, expenses, balance);
     }
 }

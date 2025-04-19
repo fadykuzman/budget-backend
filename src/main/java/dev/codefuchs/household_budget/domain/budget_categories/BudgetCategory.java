@@ -33,4 +33,5 @@ public class BudgetCategory {
     private int endMonth;
     @OneToMany(mappedBy = "budgetCategory", cascade = CascadeType.ALL)
     private List<Budget> budgets;
+
 }

@@ -1,6 +1,7 @@
 package dev.codefuchs.household_budget.domain.budget;
 
 import dev.codefuchs.household_budget.domain.budget_categories.BudgetCategory;
+import dev.codefuchs.household_budget.domain.compensations.Compensation;
 import dev.codefuchs.household_budget.domain.expenses.Expense;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,7 @@ public class Budget {
 
     @OneToMany(mappedBy = "budget", cascade = ALL)
     private Set<Expense> expenses;
+    @OneToMany(mappedBy = "budget", cascade = ALL)
+    private Set<Compensation> compensations;
 
 }

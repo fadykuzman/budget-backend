@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +33,16 @@ public class BudgetCategoriesService {
         var savedBudget = repository.save(newBudget);
         var event = new BudgetCategoryAddedEvent(savedBudget, input.startDate(), input.endDate());
         publisher.publishEvent(event);
+    }
+
+    public GetBudgetCategoriesOutput get() {
+        var list = repository.findAll().stream()
+                .map(BudgetCategoryOutput::new)
+                .toList();
+        return new GetBudgetCategoriesOutput(list);
+    }
+
+    public void delete(UUID id) {
+        repository.deleteById(id);
     }
 }
