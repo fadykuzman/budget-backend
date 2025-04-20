@@ -1,0 +1,15 @@
+ALTER TABLE budget_categories
+    ALTER COLUMN amount TYPE NUMERIC(19,2),
+    ADD COLUMN currency VARCHAR(3) DEFAULT 'EUR';
+
+ALTER TABLE budgets
+    ALTER COLUMN amount TYPE NUMERIC(19,2),
+    ADD COLUMN currency VARCHAR(3) DEFAULT 'EUR';
+
+ALTER TABLE expenses
+    ALTER COLUMN amount TYPE NUMERIC(19,2),
+    ADD COLUMN currency VARCHAR(3) DEFAULT 'EUR';
+
+ALTER TABLE compensations
+    ALTER COLUMN amount TYPE NUMERIC(19,2),
+    ADD COLUMN currency VARCHAR(3) DEFAULT 'EUR';
