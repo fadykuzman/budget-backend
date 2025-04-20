@@ -71,8 +71,8 @@ public class BudgetsService {
     public GetBudgetSummaryOutput getSummary(UUID budgetId) {
         // TODO refactor. this will cause spaghetti code
         int target = repository.findById(budgetId).get().getAmount();
-        int expenses = expensesService.getForBudget(budgetId).totalAmount();
-        int compensation = compensationsService.getForBudget(budgetId).totalAmount();
+        int expenses = expensesService.getTotalAmount(budgetId);
+        int compensation = compensationsService.getTotalAmount(budgetId);
         int balance = compensation - expenses;
         return new GetBudgetSummaryOutput(target, compensation, expenses, balance);
     }

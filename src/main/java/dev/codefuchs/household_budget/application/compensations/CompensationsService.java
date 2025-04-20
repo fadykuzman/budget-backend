@@ -34,4 +34,8 @@ public class CompensationsService {
         int totalAmount = compensationOutputs.stream().mapToInt(CompensationOutput::amount).sum();
         return new GetCompensationsForBudgetOutput(compensationOutputs, totalAmount);
     }
+
+    public int getTotalAmount(UUID budgetId) {
+        return repository.findTotalCompensationById(budgetId);
+    }
 }

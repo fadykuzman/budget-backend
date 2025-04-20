@@ -3,14 +3,11 @@ package dev.codefuchs.household_budget.application.expenses;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
 import dev.codefuchs.household_budget.adapters.out.persistence.expenses.ExpensesRepository;
 import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundException;
-import dev.codefuchs.household_budget.domain.budget.Budget;
 import dev.codefuchs.household_budget.domain.expenses.Expense;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -48,5 +45,9 @@ public class ExpensesService {
         int totalAmount = expenseOutputs.stream().mapToInt(ExpenseOutput::amount)
                 .sum();
         return new GetExpensesOutput(expenseOutputs, totalAmount);
+    }
+
+    public int getTotalAmount(UUID budgetId) {
+        return repository.sumAmountByBudgetId(budgetId);
     }
 }
