@@ -11,12 +11,14 @@ import dev.codefuchs.household_budget.domain.budget_categories.BudgetCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.YearMonth;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BudgetsService {
 
     private final BudgetsRepository repository;
@@ -76,4 +78,6 @@ public class BudgetsService {
         int balance = compensation - expenses;
         return new GetBudgetSummaryOutput(target, compensation, expenses, balance);
     }
+
+
 }

@@ -34,4 +34,7 @@ public class BudgetCategory {
     @OneToMany(mappedBy = "budgetCategory", cascade = CascadeType.ALL)
     private List<Budget> budgets;
 
+    public void changeName(String name) {
+        this.name = name;
+    }
 }

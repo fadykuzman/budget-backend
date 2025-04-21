@@ -1,5 +1,6 @@
 package dev.codefuchs.household_budget.adapters.in.web.budget_categories;
 
+import dev.codefuchs.household_budget.adapters.in.web.budgets.ChangeBudgetNameRequest;
 import dev.codefuchs.household_budget.application.budget_categories.BudgetCategoriesService;
 import dev.codefuchs.household_budget.application.budget_categories.AddBudgetCategoryInput;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class BudgetCategoriesController {
     @DeleteMapping
     public void delete(@RequestParam("id") String id) {
         service.delete(UUID.fromString(id));
+    }
+
+    @PatchMapping
+    public void changeName(@RequestBody ChangeBudgetNameRequest request) {
+        var input = request.toInput();
+        service.changeName(input);
     }
 }

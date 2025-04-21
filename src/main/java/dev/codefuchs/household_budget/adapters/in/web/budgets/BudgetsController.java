@@ -36,4 +36,7 @@ public class BudgetsController {
         log.info("Deleting budget with id: {}", budgetId);
         service.delete(id);
     }
+
+
+
 }
