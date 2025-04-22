@@ -80,4 +80,9 @@ public class BudgetsService {
     }
 
 
+    public void updateTarget(UpdateBudgetTargetInput input) {
+        var budget = repository.findById(input.budgetId())
+                .orElseThrow(() -> new BudgetNotFoundException(input.budgetId()));
+        budget.updateTarget(input.target());
+    }
 }

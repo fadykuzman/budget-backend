@@ -37,6 +37,10 @@ public class BudgetsController {
         service.delete(id);
     }
 
-
+    @PatchMapping("target")
+    public void updateTarget(@RequestBody UpdateBudgetTargetRequest request) {
+        var input = request.toInput();
+        service.updateTarget(input);
+    }
 
 }

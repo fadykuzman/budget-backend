@@ -36,4 +36,7 @@ public class Budget {
     @OneToMany(mappedBy = "budget", cascade = ALL)
     private Set<Compensation> compensations;
 
+    public void updateTarget(int target) {
+        this.amount = target;
+    }
 }

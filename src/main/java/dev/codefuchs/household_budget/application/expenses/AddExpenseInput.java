@@ -15,7 +15,7 @@ public record AddExpenseInput(
 ) {
     public Expense toExpense(Budget budget) {
         return Expense.builder()
-                .purpose(purpose)
+                .purpose(purpose.toLowerCase().trim())
                 .amount(amount)
                 .date(date)
                 .budget(budget)
