@@ -2,9 +2,9 @@ package dev.codefuchs.household_budget.application.expenses;
 
 import java.util.List;
 
-public record GetExpensesOutput(
+public record PurposeOutput(
+        String purpose,
         int totalAmount,
-        List<PurposeOutput> expenses
-
+        List<ExpenseEntryOutput> expenseEntries
 ) {
 }
