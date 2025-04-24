@@ -33,4 +33,10 @@ public class CompensationsController {
         var compensationId = UUID.fromString(id);
         service.delete(compensationId);
     }
+
+    @PatchMapping
+    public void update(@RequestBody UpdateCompensationRequest request) {
+        var input = request.toInput();
+        service.update(input);
+    }
 }

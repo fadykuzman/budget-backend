@@ -6,10 +6,12 @@ import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundExceptio
 import dev.codefuchs.household_budget.domain.budget.Budget;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CompensationsService {
     private final CompensationsRepository repository;
@@ -41,5 +43,11 @@ public class CompensationsService {
 
     public void delete(UUID compensationId) {
         repository.deleteById(compensationId);
+    }
+
+    public void update(UpdateCompensationInput input) {
+        var compensation = repository.findById(input.id())
+                .orElseThrow(() -> new CompensationNotFoundException(input.id()));
+        compensation.update(input.amount());
     }
 }

@@ -26,4 +26,8 @@ public class Compensation {
     @ManyToOne
     @JoinColumn(name = "budget_id", nullable = false)
     private Budget budget;
+
+    public void update(int amount) {
+        this.amount = amount;
+    }
 }
