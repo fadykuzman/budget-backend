@@ -38,4 +38,8 @@ public class CompensationsService {
     public int getTotalAmount(UUID budgetId) {
         return repository.findTotalCompensationById(budgetId);
     }
+
+    public void delete(UUID compensationId) {
+        repository.deleteById(compensationId);
+    }
 }

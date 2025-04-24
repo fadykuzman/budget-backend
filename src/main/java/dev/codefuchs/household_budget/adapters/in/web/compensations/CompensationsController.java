@@ -27,4 +27,10 @@ public class CompensationsController {
         service.add(input);
         System.out.println("Compensation added: " + request);
     }
+
+    @DeleteMapping
+    public void delete(@RequestParam("id") String id) {
+        var compensationId = UUID.fromString(id);
+        service.delete(compensationId);
+    }
 }

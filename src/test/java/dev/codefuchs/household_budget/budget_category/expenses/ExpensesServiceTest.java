@@ -25,6 +25,6 @@ public class ExpensesServiceTest {
                 Expense.builder()
                         .id(UUID.randomUUID())
                         .date(LocalDate.now())
-        )
+        );
     }
 }
