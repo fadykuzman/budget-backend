@@ -15,7 +15,7 @@ public record ExpensesResponse(
         return new ExpensesResponse(
                 o.purpose(),
                 o.totalAmount(),
-                o.expenseEntries().stream().map(e -> ExpenseEntryResponse.fromInput(e)).toList()
+                o.expenseEntries().stream().map(ExpenseEntryResponse::fromInput).toList()
         );
     }
 }

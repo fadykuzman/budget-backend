@@ -27,4 +27,10 @@ public class ExpensesController {
         return new GetExpensesForBudgetResponse(output);
     }
 
+    @DeleteMapping
+    public void delete(@RequestParam("id") String id) {
+        var expenseId = UUID.fromString(id);
+        service.delete(expenseId);
+    }
+
 }

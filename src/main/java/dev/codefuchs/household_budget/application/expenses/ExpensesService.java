@@ -7,10 +7,7 @@ import dev.codefuchs.household_budget.domain.expenses.Expense;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,7 +35,14 @@ public class ExpensesService {
         List<PurposeOutput> purposeOutputs = groupedByPurpose.entrySet()
                 .stream().map(entry -> {
                     int totalAmount = entry.getValue().stream().mapToInt(Expense::getAmount).sum();
-                    var entries = entry.getValue().stream().map(e -> new ExpenseEntryOutput(e.getId(), e.getDate().getDayOfMonth(), e.getAmount())).toList();
+                    var entries = entry.getValue()
+                            .stream()
+                            .map(e -> new ExpenseEntryOutput(
+                                    e.getId(),
+                                    e.getDate().getDayOfMonth(),
+                                    e.getAmount()))
+                            .sorted(Comparator.comparing(ExpenseEntryOutput::dayOfMonth))
+                            .toList();
                     return new PurposeOutput(entry.getKey(), totalAmount, entries);
                 }).toList();
         // Group by purpose and get list under purpose
@@ -48,5 +52,9 @@ public class ExpensesService {
 
     public int getTotalAmount(UUID budgetId) {
         return repository.sumAmountByBudgetId(budgetId);
+    }
+
+    public void delete(UUID expenseId) {
+        repository.deleteById(expenseId);
     }
 }
