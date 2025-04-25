@@ -33,4 +33,10 @@ public class ExpensesController {
         service.delete(expenseId);
     }
 
+    @PatchMapping
+    public void update(@RequestBody UpdateExpenseRequest request) {
+        var input = request.toInput();
+        service.update(input);
+    }
+
 }

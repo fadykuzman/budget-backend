@@ -6,12 +6,13 @@ import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundExceptio
 import dev.codefuchs.household_budget.domain.expenses.Expense;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ExpensesService {
     private final ExpensesRepository repository;
@@ -56,5 +57,11 @@ public class ExpensesService {
 
     public void delete(UUID expenseId) {
         repository.deleteById(expenseId);
+    }
+
+    public void update(UpdateExpenseInput input) {
+        Expense expense = repository.findById(input.id())
+                .orElseThrow(() -> new ExpenseNotFound(input.id()));
+        expense.update(input.amount());
     }
 }
