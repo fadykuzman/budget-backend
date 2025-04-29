@@ -25,7 +25,7 @@ jobs:
       - name: Flyway Migrate
         uses: joshuaavalon/flyway-action@v3.0.0
         with:
-          url: jdbc:postgresql:/postgresql:5432/budgetdb
+          url: jdbc:postgresql:/192.168.178.69:5432/budgetdb
           user: ${{ secrets.DB_USERNAME }}
           password: ${{ secrets.DB_PASSWORD }}
           locations: filesystem:src/main/resources/database/migrations
