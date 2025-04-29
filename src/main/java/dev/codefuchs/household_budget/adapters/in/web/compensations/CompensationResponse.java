@@ -4,6 +4,6 @@ public record CompensationResponse(
         String id,
         String source,
         int amount,
-        int date
+        String date
 ) {
 }
