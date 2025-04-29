@@ -6,10 +6,10 @@ import java.time.LocalDate;
 
 public record ExpenseEntryResponse(
         String id,
-        int dayOfMonth,
+        String date,
         int amount
 ) {
     public static ExpenseEntryResponse fromInput(ExpenseEntryOutput o) {
-        return new ExpenseEntryResponse(o.id().toString(), o.dayOfMonth(), o.amount());
+        return new ExpenseEntryResponse(o.id().toString(), o.date(), o.amount());
     }
 }

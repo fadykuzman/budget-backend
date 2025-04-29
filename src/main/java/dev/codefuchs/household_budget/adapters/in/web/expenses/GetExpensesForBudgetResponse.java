@@ -4,11 +4,6 @@ import dev.codefuchs.household_budget.application.expenses.GetExpensesOutput;
 
 import java.util.List;
 
-// {
-//
-//
-//
-// }
 public record GetExpensesForBudgetResponse(
         List<ExpensesResponse> expenses,
         int totalAmount

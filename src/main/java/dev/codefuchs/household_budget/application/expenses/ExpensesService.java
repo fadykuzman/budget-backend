@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,7 @@ public class ExpensesService {
     }
 
     public GetExpensesOutput getForBudget(UUID budgetId) {
+        var dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         int budgetTotalExpenses = repository.sumAmountByBudgetId(budgetId);
         // Group by purpose and get total amount
         List<Expense> allByBudgetId = repository.findAllByBudgetId(budgetId);
@@ -40,9 +42,9 @@ public class ExpensesService {
                             .stream()
                             .map(e -> new ExpenseEntryOutput(
                                     e.getId(),
-                                    e.getDate().getDayOfMonth(),
+                                    e.getDate().format(dateTimeFormatter),
                                     e.getAmount()))
-                            .sorted(Comparator.comparing(ExpenseEntryOutput::dayOfMonth))
+                            .sorted(Comparator.comparing(ExpenseEntryOutput::date))
                             .toList();
                     return new PurposeOutput(entry.getKey(), totalAmount, entries);
                 }).toList();

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record ExpenseEntryOutput(
         UUID id,
-        int dayOfMonth,
+        String date,
         int amount
 ) {
 }
