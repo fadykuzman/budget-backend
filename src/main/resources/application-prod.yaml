@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgresql:5432/budgetdb
+    url: jdbc:postgresql://192.168.178.69:5432/budgetdb
     username: budget
     password: budget
