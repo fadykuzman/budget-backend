@@ -19,7 +19,7 @@ public record GetCompensationsForBudgetResponse(
                         o.id().toString(),
                         o.source(),
                         o.amount(),
-                        formatDate(o.date()))
+                        o.date().toString())
                 ).toList(),
         output.totalAmount());
     }

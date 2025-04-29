@@ -42,7 +42,7 @@ public class ExpensesService {
                             .stream()
                             .map(e -> new ExpenseEntryOutput(
                                     e.getId(),
-                                    e.getDate().format(dateTimeFormatter),
+                                    e.getDate().toString(),
                                     e.getAmount()))
                             .sorted(Comparator.comparing(ExpenseEntryOutput::date))
                             .toList();
@@ -65,5 +65,11 @@ public class ExpensesService {
         Expense expense = repository.findById(input.id())
                 .orElseThrow(() -> new ExpenseNotFound(input.id()));
         expense.update(input.amount());
+    }
+
+    public void updateDate(UpdateExpenseDateInput input) {
+        var expense = repository.findById(input.id())
+                .orElseThrow(() -> new ExpenseNotFound(input.id()));
+        expense.updateDate(input.date());
     }
 }

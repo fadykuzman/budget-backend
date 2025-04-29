@@ -39,4 +39,10 @@ public class ExpensesController {
         service.update(input);
     }
 
+    @PatchMapping("date")
+    public void updateDate(@RequestBody UpdateExpenseDateRequest request) {
+        var input = request.toInput();
+        service.updateDate(input);
+    }
+
 }
