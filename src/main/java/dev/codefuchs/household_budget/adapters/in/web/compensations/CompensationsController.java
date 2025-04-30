@@ -39,4 +39,10 @@ public class CompensationsController {
         var input = request.toInput();
         service.update(input);
     }
+
+    @PatchMapping("date")
+    public void updateDate(@RequestBody UpdateCompensationDateRequest request) {
+        var input = request.toInput();
+        service.updateDate(input);
+    }
 }

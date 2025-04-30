@@ -30,4 +30,8 @@ public class Compensation {
     public void update(int amount) {
         this.amount = amount;
     }
+
+    public void updateDate(LocalDate date) {
+        this.date = date;
+    }
 }

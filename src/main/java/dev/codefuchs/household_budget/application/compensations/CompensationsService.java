@@ -50,4 +50,10 @@ public class CompensationsService {
                 .orElseThrow(() -> new CompensationNotFoundException(input.id()));
         compensation.update(input.amount());
     }
+
+    public void updateDate(UpdateCompensationDateInput input) {
+        var compensation = repository.findById(input.id())
+                .orElseThrow(() -> new CompensationNotFoundException(input.id()));
+        compensation.updateDate(input.date());
+    }
 }
