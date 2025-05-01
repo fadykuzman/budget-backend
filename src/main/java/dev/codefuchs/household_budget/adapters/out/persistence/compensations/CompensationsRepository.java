@@ -13,4 +13,11 @@ public interface CompensationsRepository extends JpaRepository<Compensation, UUI
 
     @Query("SELECT COALESCE(SUM(c.amount), 0) FROM Compensation c WHERE c.budget.id = :budgetId")
     int findTotalCompensationById(@Param("budgetId")UUID id);
+
+    @Query("""
+            SELECT COALESCE(SUM(c.amount), 0)
+            FROM Compensation c
+            WHERE c.budget.id in (:budgetIds)
+            """)
+    int sumAmountByBudgetIds(@Param("budgetIds") List<UUID> budgetIds);
 }

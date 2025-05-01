@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,5 +56,9 @@ public class CompensationsService {
         var compensation = repository.findById(input.id())
                 .orElseThrow(() -> new CompensationNotFoundException(input.id()));
         compensation.updateDate(input.date());
+    }
+
+    public int getTotalAmount(List<UUID> budgetIds) {
+        return repository.sumAmountByBudgetIds(budgetIds);
     }
 }

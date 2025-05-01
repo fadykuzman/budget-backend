@@ -6,4 +6,7 @@ public record GetBudgetSummaryOutput(
         int expenses,
         int balance
 ) {
+    public static GetBudgetSummaryOutput empty() {
+        return new GetBudgetSummaryOutput(0, 0, 0, 0);
+    }
 }

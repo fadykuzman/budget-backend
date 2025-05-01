@@ -3,6 +3,7 @@ package dev.codefuchs.household_budget.application.expenses;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
 import dev.codefuchs.household_budget.adapters.out.persistence.expenses.ExpensesRepository;
 import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundException;
+import dev.codefuchs.household_budget.domain.budget.Budget;
 import dev.codefuchs.household_budget.domain.expenses.Expense;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -71,5 +72,9 @@ public class ExpensesService {
         var expense = repository.findById(input.id())
                 .orElseThrow(() -> new ExpenseNotFound(input.id()));
         expense.updateDate(input.date());
+    }
+
+    public int getTotalAmount(List<UUID> budgetIds) {
+        return repository.sumAmountByBudgetIds(budgetIds);
     }
 }

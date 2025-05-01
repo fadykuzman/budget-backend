@@ -93,4 +93,18 @@ public class BudgetsService {
                 .orElseThrow(() -> new BudgetNotFoundException(input.budgetId()));
         budget.updateTarget(input.target());
     }
+
+    public GetBudgetSummaryOutput getSummaryByMonth(YearMonth yearMonth) {
+        var budgets = repository.findAllByYearAndMonth(yearMonth.getYear(), yearMonth.getMonthValue());
+        if (budgets.isEmpty()) {
+            return GetBudgetSummaryOutput.empty();
+        }
+        int target = budgets.stream().mapToInt(Budget::getAmount).sum();
+
+        var budgetIds = budgets.stream().map(Budget::getId).toList();
+        int expenses = expensesService.getTotalAmount(budgetIds);
+        int compensation = compensationsService.getTotalAmount(budgetIds);
+        int balance = compensation - expenses;
+        return new GetBudgetSummaryOutput(target, compensation, expenses, balance);
+    }
 }

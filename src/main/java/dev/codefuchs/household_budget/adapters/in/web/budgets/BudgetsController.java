@@ -1,7 +1,6 @@
 package dev.codefuchs.household_budget.adapters.in.web.budgets;
 
 import dev.codefuchs.household_budget.application.budgets.BudgetsService;
-import dev.codefuchs.household_budget.application.budgets.GetBudgetsOutput;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +22,17 @@ public class BudgetsController {
     }
 
     // TODO refactor to a summary controller
-    @GetMapping("summary")
-    public BudgetSummaryResponse getBudgetSummary(@RequestParam("id") String id) {
+    @GetMapping(value = "summary", params = "id")
+    public BudgetSummaryResponse getBudgetSummaryById(@RequestParam("id") String id) {
         UUID budgetId = UUID.fromString(id);
         var output = service.getSummary(budgetId);
+        return new BudgetSummaryResponse(output);
+    }
+
+    @GetMapping(value = "summary", params = "month")
+    public BudgetSummaryResponse getBudgetSummaryByMonth(@RequestParam("month") String month) {
+        var yearMonth = YearMonth.parse(month);
+        var output = service.getSummaryByMonth(yearMonth);
         return new BudgetSummaryResponse(output);
     }
 

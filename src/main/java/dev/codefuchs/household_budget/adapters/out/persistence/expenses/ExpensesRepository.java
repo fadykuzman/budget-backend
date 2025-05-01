@@ -10,6 +10,14 @@ import java.util.UUID;
 
 public interface ExpensesRepository extends JpaRepository<Expense, UUID> {
     List<Expense> findAllByBudgetId(UUID budgetId);
+
     @Query("SELECT COALESCE(SUM(e.amount), 0) FROM Expense e WHERE e.budget.id = :budgetId")
     int sumAmountByBudgetId(@Param("budgetId") UUID budgetId);
+
+    @Query("""
+            SELECT COALESCE(SUM(e.amount), 0)
+            FROM Expense e
+            WHERE e.budget.id in (:budgetIds)
+            """)
+    Integer sumAmountByBudgetIds(@Param("budgetIds") List<UUID> budgetIds);
 }
