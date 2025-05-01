@@ -3,3 +3,11 @@ spring:
     url: jdbc:postgresql://192.168.178.69:5432/budgetdb
     username: budget
     password: budget
+
+cors:
+  allowed-origins:
+    - http://192.168.178.69:3100
+    - http://localhost:3100
+    - http://tinyhome:3100
+    - http://100.119.149.50:3100
+    - http://tinyhome.foxhound-shark.ts.net:3100
