@@ -3,7 +3,7 @@ package dev.codefuchs.household_budget.application.budgets;
 import dev.codefuchs.household_budget.adapters.in.web.budgets.BudgetsResponse;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetDTO;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
-import dev.codefuchs.household_budget.application.budget_categories.BudgetCategoryAddedEvent;
+import dev.codefuchs.household_budget.adapters.in.events.BudgetCategoryAddedEvent;
 import dev.codefuchs.household_budget.application.compensations.CompensationsService;
 import dev.codefuchs.household_budget.application.expenses.ExpensesService;
 import dev.codefuchs.household_budget.domain.budget.Budget;
@@ -26,18 +26,18 @@ public class BudgetsService {
     private final CompensationsService compensationsService;
 
     @EventListener
-    public void createBudgets(BudgetCategoryAddedEvent event) {
+    public void createBudgets(CreateBudgetsInput input) {
 
         // TODO: should notify user if budgets already exist for any month of the period
-        var budgetCategory = event.budgetCategory();
-        if (event.startDate() == null) {
+        var budgetCategory = input.budgetCategory();
+        if (input.startDate() == null) {
             YearMonth now = YearMonth.now();
             createBudget(budgetCategory, now);
-        } else if (event.endDate() == null) {
+        } else if (input.endDate() == null) {
             YearMonth now = YearMonth.now();
-            createBudgetsRetrospectively(event, now);
+            createBudgetsRetrospectively(input, now);
         } else {
-            createBudgetsRetrospectively(event, event.endDate());
+            createBudgetsRetrospectively(input, input.endDate());
         }
     }
 
@@ -51,9 +51,9 @@ public class BudgetsService {
         repository.save(budget);
     }
 
-    private void createBudgetsRetrospectively(BudgetCategoryAddedEvent event, YearMonth now) {
-        for (YearMonth start = event.startDate(); start.isBefore(now.plusMonths(1)); start = start.plusMonths(1)) {
-            createBudget(event.budgetCategory(), start);
+    private void createBudgetsRetrospectively(CreateBudgetsInput input, YearMonth now) {
+        for (YearMonth start = input.startDate(); start.isBefore(now.plusMonths(1)); start = start.plusMonths(1)) {
+            createBudget(input.budgetCategory(), start);
         }
     }
 

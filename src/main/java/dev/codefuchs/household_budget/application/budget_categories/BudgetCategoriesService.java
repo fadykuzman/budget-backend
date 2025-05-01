@@ -1,10 +1,10 @@
 package dev.codefuchs.household_budget.application.budget_categories;
 
+import dev.codefuchs.household_budget.adapters.in.events.BudgetCategoryAddedEvent;
 import dev.codefuchs.household_budget.adapters.out.persistence.budget_categories.BudgetCategoriesRepositery;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
 import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundException;
 import dev.codefuchs.household_budget.application.budgets.ChangeBudgetNameInput;
-import dev.codefuchs.household_budget.domain.budget.Budget;
 import dev.codefuchs.household_budget.domain.budget_categories.BudgetCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
