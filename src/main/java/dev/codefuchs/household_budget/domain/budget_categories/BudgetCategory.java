@@ -6,7 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +22,7 @@ import static jakarta.persistence.EnumType.STRING;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class BudgetCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -33,6 +38,12 @@ public class BudgetCategory {
     private int endMonth;
     @OneToMany(mappedBy = "budgetCategory", cascade = CascadeType.ALL)
     private List<Budget> budgets;
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 
     public void changeName(String name) {
         this.name = name;
