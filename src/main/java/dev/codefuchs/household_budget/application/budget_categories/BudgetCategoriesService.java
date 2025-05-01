@@ -1,7 +1,7 @@
 package dev.codefuchs.household_budget.application.budget_categories;
 
 import dev.codefuchs.household_budget.adapters.in.events.BudgetCategoryAddedEvent;
-import dev.codefuchs.household_budget.adapters.out.persistence.budget_categories.BudgetCategoriesRepositery;
+import dev.codefuchs.household_budget.adapters.out.persistence.budget_categories.BudgetCategoriesRepository;
 import dev.codefuchs.household_budget.adapters.out.persistence.budgets.BudgetsRepository;
 import dev.codefuchs.household_budget.application.budgets.BudgetNotFoundException;
 import dev.codefuchs.household_budget.application.budgets.ChangeBudgetNameInput;
@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.YearMonth;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class BudgetCategoriesService {
-    private final BudgetCategoriesRepositery repository;
+    private final BudgetCategoriesRepository repository;
     private final BudgetsRepository budgetsRepository;
     private final ApplicationEventPublisher publisher;
 
@@ -58,5 +59,9 @@ public class BudgetCategoriesService {
                 .orElseThrow(() -> new BudgetNotFoundException(input.budgetId()));
         var category = budget.getBudgetCategory();
         category.changeName(input.name());
+    }
+
+    public List<BudgetCategory> findActiveOrEndingOnOrAfter(YearMonth yearMonth) {
+        return repository.findActiveOrEndingOnOrAfter(yearMonth.getYear(), yearMonth.getMonth().getValue());
     }
 }
