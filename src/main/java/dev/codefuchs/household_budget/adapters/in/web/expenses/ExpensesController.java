@@ -36,7 +36,7 @@ public class ExpensesController {
         service.delete(expenseId);
     }
 
-    @PatchMapping
+    @PatchMapping("amount")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UpdateExpenseRequest request) {
         var input = request.toInput();
