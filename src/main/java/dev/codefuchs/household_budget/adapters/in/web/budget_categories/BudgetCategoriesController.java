@@ -4,6 +4,7 @@ import dev.codefuchs.household_budget.adapters.in.web.budgets.ChangeBudgetNameRe
 import dev.codefuchs.household_budget.application.budget_categories.BudgetCategoriesService;
 import dev.codefuchs.household_budget.application.budget_categories.AddBudgetCategoryInput;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class BudgetCategoriesController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody AddBudgetCategoryRequest request) {
         var input = new AddBudgetCategoryInput(
                 request.name(), request.amount(), request.cadence(), request.startDate(), request.endDate());
@@ -28,11 +30,13 @@ public class BudgetCategoriesController {
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam("id") String id) {
         service.delete(UUID.fromString(id));
     }
 
     @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void changeName(@RequestBody ChangeBudgetNameRequest request) {
         var input = request.toInput();
         service.changeName(input);

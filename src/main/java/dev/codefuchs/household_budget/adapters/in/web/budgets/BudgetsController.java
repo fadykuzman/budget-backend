@@ -3,6 +3,7 @@ package dev.codefuchs.household_budget.adapters.in.web.budgets;
 import dev.codefuchs.household_budget.application.budgets.BudgetsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.YearMonth;
@@ -37,6 +38,7 @@ public class BudgetsController {
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam("budgetId") String budgetId) {
         var id = UUID.fromString(budgetId);
         log.info("Deleting budget with id: {}", budgetId);
@@ -44,6 +46,7 @@ public class BudgetsController {
     }
 
     @PatchMapping("target")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTarget(@RequestBody UpdateBudgetTargetRequest request) {
         var input = request.toInput();
         service.updateTarget(input);

@@ -2,6 +2,7 @@ package dev.codefuchs.household_budget.adapters.in.web.compensations;
 
 import dev.codefuchs.household_budget.application.compensations.CompensationsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class CompensationsController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody AddCompensationRequest request) {
         var input = request.toInput();
         service.add(input);
@@ -29,12 +31,14 @@ public class CompensationsController {
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam("id") String id) {
         var compensationId = UUID.fromString(id);
         service.delete(compensationId);
     }
 
     @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UpdateCompensationRequest request) {
         var input = request.toInput();
         service.update(input);

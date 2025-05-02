@@ -2,6 +2,7 @@ package dev.codefuchs.household_budget.adapters.in.web.expenses;
 
 import dev.codefuchs.household_budget.application.expenses.ExpensesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -13,6 +14,7 @@ public class ExpensesController {
     private final ExpensesService service;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody AddExpenseRequest request) {
         var input = request.toInput();
         service.add(input);
@@ -28,18 +30,21 @@ public class ExpensesController {
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestParam("id") String id) {
         var expenseId = UUID.fromString(id);
         service.delete(expenseId);
     }
 
     @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UpdateExpenseRequest request) {
         var input = request.toInput();
         service.update(input);
     }
 
     @PatchMapping("date")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateDate(@RequestBody UpdateExpenseDateRequest request) {
         var input = request.toInput();
         service.updateDate(input);
