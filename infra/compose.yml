@@ -1,3 +1,5 @@
+include:
+  - ./keycloak.yaml
 services:
   postgres:
     image: postgres:latest
