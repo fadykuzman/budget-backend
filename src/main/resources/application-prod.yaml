@@ -3,6 +3,12 @@ spring:
     url: jdbc:postgresql://192.168.178.69:5432/budgetdb
     username: budget
     password: budget
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://tinyhome.foxhound-shark.ts.net:8180/realms/money-bunny
+          jwk-set-uri: http://tinyhome.foxhound-shark.ts.net:8180/realms/money-bunny/protocol/openid-connect/certs
 
 cors:
   allowed-origins:
@@ -11,3 +17,6 @@ cors:
     - http://tinyhome:3100
     - http://100.119.149.50:3100
     - http://tinyhome.foxhound-shark.ts.net:3100
+    -
+
+
