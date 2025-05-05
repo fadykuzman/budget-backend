@@ -2,14 +2,20 @@ spring:
   application:
     name: household-budget-backend
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
   datasource:
     url: jdbc:postgresql://localhost:5432/budgetdb
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/master
+          jwk-set-uri: http://localhost:8180/realms/master/protocol/openid-connect/certs
 cors:
   allowed-origins:
     - http://localhost:3000

@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE ROLE keycloak WITH LOGIN PASSWORD 'keycloak';
 
-CREATE DATEBASE keycloak;
+CREATE DATABASE keycloak;
 
 \c keycloak
 

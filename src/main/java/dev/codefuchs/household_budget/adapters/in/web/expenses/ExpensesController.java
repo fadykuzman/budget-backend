@@ -45,9 +45,9 @@ public class ExpensesController {
 
     @PatchMapping("date")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+
     public void updateDate(@RequestBody UpdateExpenseDateRequest request) {
         var input = request.toInput();
         service.updateDate(input);
     }
-
 }
