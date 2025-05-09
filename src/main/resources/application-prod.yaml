@@ -7,16 +7,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://tinyhome.foxhound-shark.ts.net:8180/realms/money-bunny
-          jwk-set-uri: http://tinyhome.foxhound-shark.ts.net:8180/realms/money-bunny/protocol/openid-connect/certs
+          issuer-uri: https://codefuchs.dev/auth/realms/money-bunny
+          jwk-set-uri: https://codefuchs.dev/auth/realms/money-bunny/protocol/openid-connect/certs
 
 cors:
   allowed-origins:
-    - http://192.168.178.69:3100
-    - http://localhost:3100
     - http://tinyhome:3100
     - http://100.119.149.50:3100
     - http://tinyhome.foxhound-shark.ts.net:3100
-    -
+    - http://codefuchs.dev
 
 

@@ -18,5 +18,11 @@ spring:
           jwk-set-uri: http://localhost:8180/realms/master/protocol/openid-connect/certs
 cors:
   allowed-origins:
-    - http://localhost:3000
-    - http://127.0.0.1:3000
+    - http://localhost
+    - http://127.0.0.1
+
+springdoc:
+  swagger-ui:
+#    path: /swagger-ui/index.html
+#    config-url: /api/swagger-ui/swagger-config
+    url: /api/v3/api-docs

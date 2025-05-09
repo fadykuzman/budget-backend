@@ -1,5 +1,6 @@
 include:
   - ./keycloak.yaml
+  - ./nginx.yaml
 services:
   postgres:
     image: postgres:latest
