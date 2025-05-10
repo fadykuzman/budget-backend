@@ -7,8 +7,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/auth/realms/money-bunny
-          jwk-set-uri: http://keycloak:8080/auth/realms/money-bunny/protocol/openid-connect/certs
+          issuer-uri: https://codefuchs.dev/auth/realms/money-bunny
+          jwk-set-uri: https://codefuchs.dev/auth/realms/money-bunny/protocol/openid-connect/certs
 
 cors:
   allowed-origins:
