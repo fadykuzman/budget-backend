@@ -13,5 +13,8 @@ spring:
 cors:
   allowed-origins:
     - https://codefuchs.dev
+    - https://api.codefuchs.dev
+    - https://auth.codefuchs.dev
+    - https://*.codefuchs.dev
 
 
