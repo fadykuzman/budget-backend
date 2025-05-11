@@ -9,7 +9,6 @@ spring:
     password: postgres
     driver-class-name: org.postgresql.Driver
 
-
   security:
     oauth2:
       resourceserver:

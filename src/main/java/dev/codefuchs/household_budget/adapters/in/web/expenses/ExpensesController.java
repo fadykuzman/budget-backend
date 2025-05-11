@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/expenses")
+@RequestMapping("v1/expenses")
 @RequiredArgsConstructor
 public class ExpensesController {
     private final ExpensesService service;

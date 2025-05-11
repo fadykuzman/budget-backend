@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/budgets/categories")
+@RequestMapping("v1/budgets/categories")
 @RequiredArgsConstructor
 public class BudgetCategoriesController {
     private final BudgetCategoriesService service;

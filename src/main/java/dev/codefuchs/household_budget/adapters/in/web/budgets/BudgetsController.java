@@ -10,7 +10,7 @@ import java.time.YearMonth;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/budgets")
+@RequestMapping("v1/budgets")
 @RequiredArgsConstructor
 @Slf4j
 public class BudgetsController {
