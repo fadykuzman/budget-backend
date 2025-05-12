@@ -37,7 +37,7 @@ public class CompensationsController {
         service.delete(compensationId);
     }
 
-    @PatchMapping
+    @PatchMapping("amount")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UpdateCompensationRequest request) {
         var input = request.toInput();
