@@ -39,7 +39,7 @@ public class BudgetsController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@RequestParam("budgetId") String budgetId) {
+    public void delete(@RequestParam("id") String budgetId) {
         var id = UUID.fromString(budgetId);
         log.info("Deleting budget with id: {}", budgetId);
         service.delete(id);
